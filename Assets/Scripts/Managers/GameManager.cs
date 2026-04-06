@@ -10,6 +10,7 @@ namespace Managers
     {
         [SerializeField] private float timeUntilFirstWave = 60f;
         [SerializeField] private int numberOfWaves = 1;
+        private int _completedWaves = 0;
         protected IEnumerator Start()
         {
             yield return new WaitForSeconds(timeUntilFirstWave);
@@ -19,6 +20,11 @@ namespace Managers
 
         private void HandleWaveCompleted()
         {
+            _completedWaves++;
+            if (_completedWaves >= numberOfWaves)
+            {
+                return;
+            }
             StartCoroutine(WaveManager.Instance.StartWave());
         }
         
