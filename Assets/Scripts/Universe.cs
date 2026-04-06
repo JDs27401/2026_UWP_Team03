@@ -18,10 +18,10 @@ namespace C__Classes.Systems
         [Header("Starting settings")]
         [SerializeField] private int StartingHour = 8;
         [SerializeField] private float StartingMinute = 0;
-        [Header("Day Phases Thresholds")]
-        [SerializeField] private int DayThreshold = 8;
-        [SerializeField] private int SundownThreshold = 18;
-        [SerializeField] private int NightThreshold = 21;
+        // [Header("Day Phases Thresholds")]
+        // [SerializeField] private int DayThreshold = 8;
+        // [SerializeField] private int SundownThreshold = 18;
+        // [SerializeField] private int NightThreshold = 21;
 
         protected override void Awake()
         {
@@ -58,19 +58,19 @@ namespace C__Classes.Systems
             RealTime += increment;
             RealTime %= 24f;
             
-            SetDayPhase();
+            // SetDayPhase();
             // PrintTime();
         }
 
-        private void SetDayPhase()
-        {
-            if (Hour >= NightThreshold || Hour < DayThreshold) 
-                TimeOfDay = Phase.Night;
-            else if (Hour >= SundownThreshold) 
-                TimeOfDay = Phase.Sundown;
-            else if (Hour >= DayThreshold) 
-                TimeOfDay = Phase.Day;
-        }
+        // private void SetDayPhase()
+        // {
+        //     if (Hour >= NightThreshold || Hour < DayThreshold) 
+        //         TimeOfDay = Phase.Night;
+        //     else if (Hour >= SundownThreshold) 
+        //         TimeOfDay = Phase.Sundown;
+        //     else if (Hour >= DayThreshold) 
+        //         TimeOfDay = Phase.Day;
+        // }
 
         private static void PrintTime() //just a debug method
         {

@@ -20,5 +20,17 @@ namespace Scripts
             int z = Mathf.FloorToInt(worldPos.z / cellSize);
             return new Vector2Int(x, z);
         }
+        
+        public void OnDrawGizmos()
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int z = 0; z < height; z++)
+                {
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawWireCube(GetWorldPosition(x, z), Vector3.one * cellSize);
+                }
+            }
+        }
     }
 }
