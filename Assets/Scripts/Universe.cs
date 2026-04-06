@@ -1,12 +1,11 @@
 ﻿using System;
+using Singeltons;
 using UnityEngine;
 
 namespace C__Classes.Systems
 {
-    public class Universe : MonoBehaviour
+    public class Universe : SingletonPersistant
     {
-        public static Universe Instance;
-        
         private static int Day = 1;
         [Range(0, 24)] private static int Hour = 0;
         [Range(0,60)] private static float Minute = 0;
@@ -24,17 +23,9 @@ namespace C__Classes.Systems
         [SerializeField] private int SundownThreshold = 18;
         [SerializeField] private int NightThreshold = 21;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                Instance = this;
-            }
-            DontDestroyOnLoad(this);
+            base.Awake();
         }
 
         private void Start()
