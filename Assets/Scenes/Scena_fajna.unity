@@ -1182,7 +1182,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1154636231}
-  - component: {fileID: 1154636230}
+  - component: {fileID: 1154636233}
+  - component: {fileID: 1154636232}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1190,21 +1191,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1154636230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154636229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1fef81876da4d779c573f1b0150bcc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WaveSpawner
-  enemyPrefab: {fileID: 6688888492937972839, guid: 902f62a6cabff59459416a9872da381f, type: 3}
-  spawnPoint: {fileID: 744253460}
-  timeBetweenWaves: 5
 --- !u!4 &1154636231
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,6 +1206,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1154636232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154636229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312ed8e9faf0264aa6ab5dd9da31e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.GameManager
+  timeUntilFirstWave: 5
+  numberOfWaves: 2
+--- !u!114 &1154636233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154636229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5ee872897b42d69b587d1d2a694892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Managers.WaveManager
+  spawnpoint: {x: 63.72, y: 0.77, z: 36.03}
+  waveSize: 3
+  waveSizeMultiplier: 1.5
+  spawnDelta: 1
+  enemies:
+  - {fileID: 6688888492937972839, guid: 902f62a6cabff59459416a9872da381f, type: 3}
 --- !u!1 &1163266936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,13 +1369,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163266936}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.82650644, y: -0, z: -0, w: 0.56292737}
-  m_LocalPosition: {x: 54.593, y: 30.65, z: 46.27}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 54.593, y: 8.96, z: 23.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 111.483, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1163266941
 MonoBehaviour:
   m_ObjectHideFlags: 0
