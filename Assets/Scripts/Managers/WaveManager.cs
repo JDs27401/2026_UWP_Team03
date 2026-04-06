@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using DefaultNamespace;
 using Singeltons;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace Managers
                 GameObject enemy = Instantiate(enemies[random.Next(enemies.Length)], spawnpoint, Quaternion.identity);
                 yield return new WaitForSeconds(spawnDelta);
                 _aliveEnemies++;
-                enemy.GetComponent<BaseEnemy>().OnDeath += HandleEnemyDeath;
+                enemy.GetComponent<Enemy>().OnDeath += HandleEnemyDeath;
             }
             waveSize = (int) (waveSize * waveSizeMultiplier);
         }

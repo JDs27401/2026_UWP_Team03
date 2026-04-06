@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
+    public event Action OnDeath;
+    
     public int damageToCastle = 10;
     public float speed = 5f;
     public int maxHealth = 30;
@@ -117,7 +120,7 @@ public class Enemy : MonoBehaviour
             castleTarget.TakeDamage(damageToCastle);
         }
 
-        Destroy(gameObject);
+        Kill();
     }
 
     public void TakeDamage(int amount)
@@ -125,13 +128,13 @@ public class Enemy : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            Die();
+            Kill();
         }
     }
 
-    private void Die()
+    private void Kill()
     {
-        // Tu później możesz dodać nagrodę gold/efekt śmierci.
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 }
