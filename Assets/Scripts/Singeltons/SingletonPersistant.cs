@@ -2,9 +2,9 @@
 
 namespace Singeltons
 {
-    public abstract class SingletonPersistant : MonoBehaviour
+    public abstract class SingletonPersistant<T> : MonoBehaviour where T : MonoBehaviour
     {
-        public static SingletonPersistant Instance { get; private set; }
+        public static T Instance { get; private set; }
         
         protected virtual void Awake()
         {
@@ -14,7 +14,7 @@ namespace Singeltons
             }
             else
             {
-                Instance = this;
+                Instance = this as T;
             }
             DontDestroyOnLoad(this);
         }

@@ -1,11 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using DefaultNamespace;
 using Singeltons;
 using UnityEngine;
 
 namespace Managers
 {
-    public class WaveManager : SingletonNonPersistant
+    public class WaveManager : SingletonNonPersistant<WaveManager>
     {
+        public event Action OnWaveCompleted;
+        
+        private float _aliveEnemies;
+        
         [Header("Wave Settings")]
         [SerializeField] private Vector3 spawnpoint;
         [SerializeField] private int waveSize = 0;
@@ -20,10 +26,30 @@ namespace Managers
             for (int i = 0; i < waveSize; i++)
             {
                 var random = new System.Random();
-                Instantiate(enemies[random.Next(enemies.Length)], spawnpoint, Quaternion.identity);
+                GameObject enemy = Instantiate(enemies[random.Next(enemies.Length)], spawnpoint, Quaternion.identity);
                 yield return new WaitForSeconds(spawnDelta);
+                _aliveEnemies++;
+                enemy.GetComponent<BaseEnemy>().OnDeath += HandleEnemyDeath;
             }
             waveSize = (int) (waveSize * waveSizeMultiplier);
+        }
+        
+        private void HandleEnemyDeath()
+        {
+            _aliveEnemies--;
+
+            if (_aliveEnemies <= 0)
+            {
+                WaveCompleted();
+            }
+        }
+        
+        private void WaveCompleted()
+        {
+            #if UNITY_EDITOR
+            print("Wave completed");
+            #endif
+            OnWaveCompleted?.Invoke();
         }
     }
 }
