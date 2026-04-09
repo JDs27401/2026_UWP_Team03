@@ -1,3 +1,4 @@
+using System; // Wymagane dla Action
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,15 @@ public class WaveSpawner : MonoBehaviour
     
     private float countdown = 2f;
     private int waveIndex = 1;
+
+    // Definiujemy zdarzenie, które przekaże numer fali (typ int)
+    public event Action<int> OnWaveStarted;
+
+    void Start()
+    {
+        // Aktualizujemy UI na samym starcie, aby pokazało "Fala: 1" jeszcze przed odliczaniem
+        OnWaveStarted?.Invoke(waveIndex);
+    }
 
     void Update()
     {
@@ -23,12 +33,18 @@ public class WaveSpawner : MonoBehaviour
     IEnumerator SpawnWave()
     {
         Debug.Log($"Fala {waveIndex} nadchodzi!");
+        
+        // Informujemy wszystkie nasłuchujące skrypty (Prezentera), że zaczyna się nowa fala
+        OnWaveStarted?.Invoke(waveIndex);
+
         for (int i = 0; i < waveIndex; i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(0.5f); // Przerwa między wrogami w fali
         }
-        waveIndex++;
+        
+        // Zwiększamy indeks fali DOPIERO po zespawnowaniu obecnej
+        waveIndex++; 
     }
 
     void SpawnEnemy()
@@ -43,4 +59,3 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 }
-
