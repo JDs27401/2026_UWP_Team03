@@ -11,7 +11,7 @@ public class GameHUDPresenter : MonoBehaviour
 
     private void Start() 
     {
-        gameModel = Managers.GameManager.Instance.Model; 
+        gameModel = Managers.GameManager.Instance.GameModel; 
         
         gameModel.OnCoinsChanged += hudView.UpdateCoins;
         gameModel.OnBaseHealthChanged += hudView.UpdateBaseHealth; 

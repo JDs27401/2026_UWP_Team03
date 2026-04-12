@@ -11,15 +11,15 @@ namespace Managers
         [SerializeField] private int numberOfWaves = 1;
         private int _completedWaves = 0;
 
-        public GameModel Model { get; private set; }
+        public GameModel GameModel { get; private set; }
 
         protected override void Awake() 
         {
             base.Awake();
             
-            if (Model == null)
+            if (GameModel == null)
             {
-                Model = new GameModel(150, 100, 1);
+                GameModel = new GameModel(150, 100, 1);
             }
         }
 
