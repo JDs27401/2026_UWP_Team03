@@ -26,14 +26,12 @@ public class EnemyPresenter : MonoBehaviour
 
     private void UpdateView() 
     {
-        // Obliczamy procent zdrowia dla Slidera
         float normalizedHealth = currentHealth / maxHealth;
         healthView.SetHealthFill(normalizedHealth);
     }
 
     private void Die() 
     {
-        // Logika śmierci przeciwnika, dodanie zasobów do GameModel itp.
         Destroy(gameObject);
     }
 }

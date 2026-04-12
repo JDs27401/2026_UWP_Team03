@@ -22,7 +22,7 @@ public class GameHUDPresenter : MonoBehaviour
         }
         else 
         {
-            Debug.LogWarning("Brak przypisanego WaveSpawner w GameHUDPresenter!");
+            Debug.LogWarning("Brak przypisanego WaveSpawner w GameHUDPresenter");
         }
     }
 

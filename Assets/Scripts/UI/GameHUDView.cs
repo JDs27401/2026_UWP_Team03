@@ -3,12 +3,12 @@ using TMPro;
 
 public class GameHUDView : MonoBehaviour 
 {
-    [Header("Główne statystyki")]
+    [Header("Main statistics")]
     [SerializeField] private TextMeshProUGUI coinsText;
     [SerializeField] private TextMeshProUGUI baseHealthText;
     [SerializeField] private TextMeshProUGUI waveCountText;
     
-    [Header("Podgląd fali")]
+    [Header("Wave preview")]
     [SerializeField] private TextMeshProUGUI wavePreviewText;
 
     public void UpdateCoins(int coins) 

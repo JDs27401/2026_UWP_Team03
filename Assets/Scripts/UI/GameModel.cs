@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// Czysta klasa C#, bez dziedziczenia po MonoBehaviour
 public class GameModel 
 {
     public int Coins { get; private set; }
     public int BaseHealth { get; private set; }
     public int CurrentWave { get; private set; }
 
-    // Eventy informujące o zmianie stanu
     public event Action<int> OnCoinsChanged;
     public event Action<int> OnBaseHealthChanged;
     public event Action<int> OnWaveChanged;
@@ -40,7 +38,6 @@ public class GameModel
     }
 }
 
-// Struktura opisująca nadchodzącą falę
 [Serializable]
 public struct WavePreviewData 
 {
