@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using Singeltons;
 using UnityEngine;
 
@@ -11,6 +10,19 @@ namespace Managers
         [SerializeField] private float timeUntilFirstWave = 60f;
         [SerializeField] private int numberOfWaves = 1;
         private int _completedWaves = 0;
+
+        public GameModel Model { get; private set; }
+
+        protected override void Awake() 
+        {
+            base.Awake();
+            
+            if (Model == null)
+            {
+                Model = new GameModel(150, 100, 1);
+            }
+        }
+
         protected IEnumerator Start()
         {
             yield return new WaitForSeconds(timeUntilFirstWave);
@@ -30,7 +42,10 @@ namespace Managers
         
         private void OnDestroy()
         {
-            WaveManager.Instance.OnWaveCompleted -= HandleWaveCompleted;
+            if (WaveManager.Instance != null)
+            {
+                WaveManager.Instance.OnWaveCompleted -= HandleWaveCompleted;
+            }
         }
     }
 }

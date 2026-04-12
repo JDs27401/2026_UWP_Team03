@@ -4,38 +4,69 @@ using System.Collections.Generic;
 public class GameHUDPresenter : MonoBehaviour 
 {
     [SerializeField] private GameHUDView hudView;
-    
-    [SerializeField] private Castle playerCastle; 
-    [SerializeField] private WaveSpawner waveSpawner;
+    [SerializeField] private List<WavePreviewData> upcomingWaves;
 
-    private void Awake() 
+    private GameModel gameModel;
+    private int currentLocalWave = 1;
+
+    private void Start() 
     {
-        if (playerCastle != null) 
+        gameModel = Managers.GameManager.Instance.Model; 
+        
+        gameModel.OnCoinsChanged += hudView.UpdateCoins;
+        gameModel.OnBaseHealthChanged += hudView.UpdateBaseHealth; 
+
+        hudView.UpdateCoins(gameModel.Coins);
+        hudView.UpdateBaseHealth(gameModel.BaseHealth); 
+        
+        if (Managers.WaveManager.Instance != null)
         {
-            playerCastle.OnHealthChanged += hudView.UpdateBaseHealth;
+            Managers.WaveManager.Instance.OnWaveCompleted += HandleWaveCompleted;
         }
 
-        if (waveSpawner != null) 
+        UpdateWaveUI();
+    }
+
+    private void HandleWaveCompleted()
+    {
+        hudView.UpdateWavePreview("Wave completed");
+        Invoke(nameof(StartNextLocalWave), 3f); 
+    }
+
+    private void StartNextLocalWave()
+    {
+        currentLocalWave++;
+        UpdateWaveUI();
+    }
+
+    private void UpdateWaveUI()
+    {
+        hudView.UpdateWaveCount(currentLocalWave);
+
+        int nextWaveIndex = currentLocalWave; 
+        
+        if (nextWaveIndex < upcomingWaves.Count) 
         {
-            waveSpawner.OnWaveStarted += hudView.UpdateWaveCount;
-            
-        }
+            var nextData = upcomingWaves[nextWaveIndex];
+            hudView.UpdateWavePreview($"{nextData.EnemyCount}x {nextData.EnemyType}");
+        } 
         else 
         {
-            Debug.LogWarning("Brak przypisanego WaveSpawner w GameHUDPresenter");
+            hudView.UpdateWavePreview("Last wave!");
         }
     }
 
     private void OnDestroy() 
     {
-        if (playerCastle != null) 
+        if (gameModel != null) 
         {
-            playerCastle.OnHealthChanged -= hudView.UpdateBaseHealth;
+            gameModel.OnCoinsChanged -= hudView.UpdateCoins;
+            gameModel.OnBaseHealthChanged -= hudView.UpdateBaseHealth;
         }
-
-        if (waveSpawner != null)
+        
+        if (Managers.WaveManager.Instance != null)
         {
-            waveSpawner.OnWaveStarted -= hudView.UpdateWaveCount;
+            Managers.WaveManager.Instance.OnWaveCompleted -= HandleWaveCompleted;
         }
     }
 }

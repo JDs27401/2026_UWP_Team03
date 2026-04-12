@@ -3,12 +3,9 @@ using TMPro;
 
 public class GameHUDView : MonoBehaviour 
 {
-    [Header("Main statistics")]
     [SerializeField] private TextMeshProUGUI coinsText;
     [SerializeField] private TextMeshProUGUI baseHealthText;
     [SerializeField] private TextMeshProUGUI waveCountText;
-    
-    [Header("Wave preview")]
     [SerializeField] private TextMeshProUGUI wavePreviewText;
 
     public void UpdateCoins(int coins) 
@@ -18,7 +15,7 @@ public class GameHUDView : MonoBehaviour
 
     public void UpdateBaseHealth(int health) 
     {
-        baseHealthText.text = $"Health: {health} HP";
+        baseHealthText.text = $"Base health: {health} HP";
     }
 
     public void UpdateWaveCount(int wave) 

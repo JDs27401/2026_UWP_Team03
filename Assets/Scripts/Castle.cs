@@ -1,35 +1,30 @@
 using UnityEngine;
-using System;
 
 public class Castle : MonoBehaviour
 {
-    public int maxHealth = 100;
-    private int currentHealth;
-
-    public event Action<int> OnHealthChanged;
-
-    void Start()
+    private void Start()
     {
-        currentHealth = maxHealth;
-        
-        OnHealthChanged?.Invoke(currentHealth);
-        
-        Debug.Log($"Zamek gotowy do obrony! HP: {currentHealth}");
+        Managers.GameManager.Instance.Model.OnBaseHealthChanged += CheckGameOver;
     }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth < 0) currentHealth = 0;
+        Managers.GameManager.Instance.Model.TakeDamage(amount);
+    }
 
-        OnHealthChanged?.Invoke(currentHealth);
-        
-        Debug.Log($"Zamek obrywa! Aktualne HP: {currentHealth}");
-        
+    private void CheckGameOver(int currentHealth)
+    {
         if (currentHealth <= 0)
         {
             Debug.Log("Porażka! Zamek zniszczony!");
-            // Logika Game Over
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Managers.GameManager.Instance != null && Managers.GameManager.Instance.Model != null)
+        {
+            Managers.GameManager.Instance.Model.OnBaseHealthChanged -= CheckGameOver;
         }
     }
 }

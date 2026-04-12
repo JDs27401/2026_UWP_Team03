@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
+[Serializable]
+public struct WavePreviewData 
+{
+    public string EnemyType;
+    public int EnemyCount;
+}
+
 public class GameModel 
 {
     public int Coins { get; private set; }
@@ -36,11 +43,4 @@ public class GameModel
         CurrentWave++;
         OnWaveChanged?.Invoke(CurrentWave);
     }
-}
-
-[Serializable]
-public struct WavePreviewData 
-{
-    public string EnemyType;
-    public int EnemyCount;
 }

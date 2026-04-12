@@ -3,35 +3,38 @@ using UnityEngine;
 public class EnemyPresenter : MonoBehaviour 
 {
     [SerializeField] private EnemyHealthView healthView;
+    
+    private EnemyModel model;
 
-    private float maxHealth = 50f;
-    private float currentHealth;
+    private void Awake() 
+    {
+        model = new EnemyModel(50f); 
+        
+        model.OnHealthChanged += healthView.SetHealthFill;
+        model.OnDied += HandleDeath;
+    }
 
     private void Start() 
     {
-        currentHealth = maxHealth;
-        UpdateView();
+        healthView.SetHealthFill(model.GetNormalizedHealth());
     }
 
     public void TakeDamage(float damage) 
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0) 
-        {
-            currentHealth = 0;
-            Die();
-        }
-        UpdateView();
+        model.TakeDamage(damage);
     }
 
-    private void UpdateView() 
-    {
-        float normalizedHealth = currentHealth / maxHealth;
-        healthView.SetHealthFill(normalizedHealth);
-    }
-
-    private void Die() 
+    private void HandleDeath() 
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy() 
+    {
+        if (model != null) 
+        {
+            model.OnHealthChanged -= healthView.SetHealthFill;
+            model.OnDied -= HandleDeath;
+        }
     }
 }
