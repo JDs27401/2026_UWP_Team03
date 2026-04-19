@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public struct WavePreviewData 
@@ -25,10 +26,26 @@ public class GameModel
         CurrentWave = startWave;
     }
 
-    public void AddCoins(int amount) 
+    public void SetCoins(int value)
     {
-        Coins += amount;
+        Coins = Mathf.Max(0, value);
         OnCoinsChanged?.Invoke(Coins);
+    }
+
+    public bool TrySpendCoins(int amount)
+    {
+        if (amount <= 0)
+        {
+            return true;
+        }
+
+        if (Coins < amount)
+        {
+            return false;
+        }
+
+        SetCoins(Coins - amount);
+        return true;
     }
 
     public void TakeDamage(int damage) 

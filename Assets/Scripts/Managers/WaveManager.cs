@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Economy;
 using Singeltons;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Managers
         
         [Header("Wave Settings")]
         [SerializeField] private Vector3 spawnpoint;
-        [SerializeField] private int waveSize = 0;
+        [SerializeField] private int waveSize;
         [SerializeField] private float waveSizeMultiplier = 1.5f;
         [SerializeField] private float spawnDelta = 1.0f;
 
@@ -26,23 +27,36 @@ namespace Managers
             {
                 var random = new System.Random();
                 GameObject enemy = Instantiate(enemies[random.Next(enemies.Length)], spawnpoint, Quaternion.identity);
+                 
+                Enemy enemyComponent = enemy.GetComponent<Enemy>();
+                if (enemyComponent != null)
+                {
+                    enemyComponent.OnDeath += HandleEnemyDeath;
+                    _aliveEnemies++;
+                }
+                
                 yield return new WaitForSeconds(spawnDelta);
-                _aliveEnemies++;
-                enemy.GetComponent<Enemy>().OnDeath += HandleEnemyDeath;
             }
+
+            // Czekaj aż wszystkie spawnięte przeciwniki będą martwi, zanim fala się skończy
+            while (_aliveEnemies > 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+
             waveSize = (int) (waveSize * waveSizeMultiplier);
+            WaveCompleted();
         }
         
         private void HandleEnemyDeath()
         {
             _aliveEnemies--;
-
-            if (_aliveEnemies <= 0)
+            if (SimpleEconomyService.Instance != null)
             {
-                WaveCompleted();
+                SimpleEconomyService.Instance.AddCredits(1, "zabicie przeciwnika");
             }
         }
-        
+
         private void WaveCompleted()
         {
             #if UNITY_EDITOR

@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Castle : MonoBehaviour
 {
+    public static event Action OnCastleDamaged;
+
     private void Start()
     {
         Managers.GameManager.Instance.GameModel.OnBaseHealthChanged += CheckGameOver;
@@ -10,6 +13,7 @@ public class Castle : MonoBehaviour
     public void TakeDamage(int amount)
     {
         Managers.GameManager.Instance.GameModel.TakeDamage(amount);
+        OnCastleDamaged?.Invoke();
     }
 
     private void CheckGameOver(int currentHealth)
