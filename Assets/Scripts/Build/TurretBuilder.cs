@@ -4,13 +4,14 @@ using Economy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CommandPattern;
+using FactoryPattern;
 
 namespace Build
 {
     public class TurretBuilder : MonoBehaviour
     {
         [Header("Build Setup")]
-        [SerializeField] private GameObject turretPrefab;
+        [SerializeField] private AutoTurretStandalone turretPrefab;
         [SerializeField] private LayerMask placementMask = ~0;
         [SerializeField] private float placementOffsetY;
         [SerializeField] private bool keepBuildModeAfterPlacement = true;
@@ -26,6 +27,9 @@ namespace Build
         [SerializeField] private InputActionReference redoAction;
         [SerializeField] private InputActionReference clickAction;
         [SerializeField] private InputActionReference pointerPositionAction;
+        
+        [Header("Factory Reference")]
+        [SerializeField] private BaseTurretFactory turretFactory;
 
         public enum Mode { None, Build, Sell }
         public Mode CurrentMode { get; private set; } = Mode.None;
@@ -143,7 +147,7 @@ namespace Build
                     if (buildPlatform != null)
                     {
                         Vector3 spawnPosition = hit.point + Vector3.up * placementOffsetY;
-                        ICommand buildCmd = new BuildTurretCommand(turretPrefab, spawnPosition, turretBuildCost);
+                        ICommand buildCmd = new BuildTurretCommand(turretPrefab, spawnPosition, turretBuildCost, turretFactory);
                         CommandInvoker.ExecuteCommand(buildCmd);
 
                         if (!keepBuildModeAfterPlacement) SetMode(Mode.None);

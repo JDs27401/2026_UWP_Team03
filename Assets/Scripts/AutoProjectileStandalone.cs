@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PrototypePattern;
+using UnityEngine;
 
 public class AutoProjectileStandalone : MonoBehaviour
 {

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using PrototypePattern;
+using UnityEngine;
 
-public class AutoTurretStandalone : MonoBehaviour
+public class AutoTurretStandalone : MonoBehaviour, IPrototype<AutoTurretStandalone>
 {
     [Header("Targeting")]
     [SerializeField] private float range = 12f;
@@ -132,6 +133,11 @@ public class AutoTurretStandalone : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+    
+    public AutoTurretStandalone Clone()
+    {
+        return Instantiate(this);
     }
 }
 

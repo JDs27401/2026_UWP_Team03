@@ -303,6 +303,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &350345698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 350345700}
+  - component: {fileID: 350345699}
+  m_Layer: 0
+  m_Name: EnemyFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &350345699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350345698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0722e85e8c45cfb55250447f70a9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FactoryPattern.EnemyFactory
+  enemyPrototypes:
+  - {fileID: -3031027948566696977, guid: 902f62a6cabff59459416a9872da381f, type: 3}
+--- !u!4 &350345700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350345698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 262.7015, y: 0, z: 1695.8585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &422682361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1001,6 +1047,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556573379}
   m_Mesh: {fileID: 7665692320352445396, guid: 77e47a3c4a6a56b4e8f999eee283ba01, type: 3}
+--- !u!1 &664699463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664699465}
+  - component: {fileID: 664699464}
+  m_Layer: 0
+  m_Name: TurretFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &664699464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664699463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea04a654ffd4373877cb7cf53ecb6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FactoryPattern.TurretFactory
+--- !u!4 &664699465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664699463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 262.7015, y: 0, z: 1695.8585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &744253459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,8 +1439,7 @@ MonoBehaviour:
   waveSize: 3
   waveSizeMultiplier: 1.5
   spawnDelta: 1
-  enemies:
-  - {fileID: 6688888492937972839, guid: 902f62a6cabff59459416a9872da381f, type: 3}
+  _enemyFactory: {fileID: 350345699}
 --- !u!1 &1163266936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,7 +3160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3e1d7f97e54f038e1234ba644c9335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleBuild.MouseTurretBuilder
-  turretPrefab: {fileID: 657723611693775431, guid: cfffb458338841b40a3a849737a4768b, type: 3}
+  turretPrefab: {fileID: 1673674675409486301, guid: cfffb458338841b40a3a849737a4768b, type: 3}
   placementMask:
     serializedVersion: 2
     m_Bits: 1
@@ -3085,6 +3174,7 @@ MonoBehaviour:
   redoAction: {fileID: 1856567577267898502, guid: 6d57d049f9d8c4342adb3b83fc904894, type: 3}
   clickAction: {fileID: 8352931052771436841, guid: 6d57d049f9d8c4342adb3b83fc904894, type: 3}
   pointerPositionAction: {fileID: -325526658569063391, guid: 6d57d049f9d8c4342adb3b83fc904894, type: 3}
+  turretFactory: {fileID: 664699464}
 --- !u!4 &1810289634
 Transform:
   m_ObjectHideFlags: 0
@@ -3191,6 +3281,27 @@ PrefabInstance:
     - target: {fileID: 5654046722119760393, guid: 932139238ba7f2345b904f9a56b38a42, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703879829421106497, guid: 932139238ba7f2345b904f9a56b38a42, type: 3}
+      propertyPath: controlsText
+      value: '
+
+        When enemy reaches the tower, it damages it!
+
+
+        B
+        - Build Mode
+
+        N - Sell Mode
+
+        Z - Undo
+
+        Y - Redo
+
+        LMB
+        - Confirm
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 5703879829421106497, guid: 932139238ba7f2345b904f9a56b38a42, type: 3}
       propertyPath: playerCastle
@@ -3836,3 +3947,5 @@ SceneRoots:
   - {fileID: 23135294}
   - {fileID: 526259690}
   - {fileID: 1999102155}
+  - {fileID: 664699465}
+  - {fileID: 350345700}

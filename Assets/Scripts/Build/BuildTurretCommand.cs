@@ -1,5 +1,6 @@
 ﻿using CommandPattern;
 using Economy;
+using FactoryPattern;
 using UnityEngine;
 
 
@@ -7,16 +8,18 @@ namespace Build
 {
     public class BuildTurretCommand : ICommand
     {
-        private GameObject _turretPrefab;
+        private AutoTurretStandalone _turretPrefab;
         private Vector3 _position;
         private int _cost;
         private GameObject _placedTurret;
+        private BaseTurretFactory _turretFactory;
 
-        public BuildTurretCommand(GameObject prefab, Vector3 position, int cost) 
+        public BuildTurretCommand(AutoTurretStandalone prefab, Vector3 position, int cost, BaseTurretFactory turretFactory) 
         {
             _turretPrefab = prefab;
             _position = position;
             _cost = cost;
+            _turretFactory = turretFactory;
         }
 
         public bool Execute() 
@@ -27,9 +30,10 @@ namespace Build
             {
                 _placedTurret.SetActive(true);
             }
-            else 
+            else
             {
-                _placedTurret = Object.Instantiate(_turretPrefab, _position, Quaternion.identity);
+                AutoTurretStandalone createdTurret = _turretFactory.CreateTurret(_turretPrefab, _position);
+                _placedTurret = createdTurret.gameObject;
             }
             return true;
         }

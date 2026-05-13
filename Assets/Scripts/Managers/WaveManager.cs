@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Economy;
+using FactoryPattern;
 using Singeltons;
 using UnityEngine;
 
@@ -18,19 +19,17 @@ namespace Managers
         [SerializeField] private float waveSizeMultiplier = 1.5f;
         [SerializeField] private float spawnDelta = 1.0f;
 
-        [Header("Enemy Prefab List")]
-        [SerializeField] private GameObject[] enemies;
+        [Header("Enemy Factory Prefab List")]
+        [SerializeField] private BaseEnemyFactory _enemyFactory;
 
         public IEnumerator StartWave()
         {
             for (int i = 0; i < waveSize; i++)
             {
-                var random = new System.Random();
-                GameObject enemy = Instantiate(enemies[random.Next(enemies.Length)], spawnpoint, Quaternion.identity);
-                 
-                Enemy enemyComponent = enemy.GetComponent<Enemy>();
+                Enemy enemyComponent = _enemyFactory.CreateEnemy(transform);
                 if (enemyComponent != null)
                 {
+                    enemyComponent.transform.position = spawnpoint;
                     enemyComponent.OnDeath += HandleEnemyDeath;
                     _aliveEnemies++;
                 }

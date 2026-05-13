@@ -1,9 +1,10 @@
 using System;
+using PrototypePattern;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPrototype<Enemy>
 {
     public event Action OnDeath;
     
@@ -136,5 +137,10 @@ public class Enemy : MonoBehaviour
     {
         OnDeath?.Invoke();
         Destroy(gameObject);
+    }
+
+    public Enemy Clone()
+    {
+        return Instantiate(this);
     }
 }
