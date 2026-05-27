@@ -21,6 +21,7 @@ public class Castle : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Porażka! Zamek zniszczony!");
+            Managers.GameManager.Instance.LoseGame();
         }
     }
 

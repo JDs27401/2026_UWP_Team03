@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Singeltons
 {
@@ -8,15 +9,18 @@ namespace Singeltons
         
         protected virtual void Awake()
         {
+            //print("this singleton id: "+gameObject.GetEntityId());
+            //print("this instance id: "+ (Instance != null ? Instance.GetEntityId() : "null"));
             if (Instance != null && Instance != this)
             {
-                Destroy(this);
+                //print("Duplicate instance found!");
+                //print("deleting id: "+gameObject.GetEntityId());
+                DestroyImmediate(gameObject);
+                return;
             }
-            else
-            {
-                Instance = this as T;
-            }
-            DontDestroyOnLoad(this);
+            //print("Singleton Instantiated");
+            Instance = this as T;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

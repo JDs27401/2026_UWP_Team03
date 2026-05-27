@@ -39,6 +39,6 @@ public class GameHUDView : MonoBehaviour
 
     public void UpdateCurrentMode(string modeName)
     {
-        currentModeText.text = modeName;
+        currentModeText.text = "Current mode: " + modeName;
     }
 }

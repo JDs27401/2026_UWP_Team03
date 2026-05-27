@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Build;
 using System.Collections.Generic;
 
@@ -12,10 +13,20 @@ public class GameHUDPresenter : MonoBehaviour
     
     [Header("Controls Info")]
     [TextArea(3, 10)]
-    [SerializeField] private string controlsText = "B - Build Mode\nN - Sell Mode\nZ - Undo\nY - Redo\nLMB - Confirm";
+    [SerializeField] private string collapsedControlsText = "H - help";
+    [TextArea(3, 10)]
+    [SerializeField] private string expandedControlsText =
+        "Keybinds:\n" +
+        "B - Build mode\n" +
+        "N - Sell mode\n" +
+        "Z - Undo\n" +
+        "Y - Redo\n" +
+        "LMB - Confirm\n" +
+        "Defend the tower! When enemy reaches it, it gets damaged!";
 
     private GameModel gameModel;
     private int currentLocalWave = 1;
+    private bool isHelpExpanded;
 
     private void Start() 
     {
@@ -27,7 +38,8 @@ public class GameHUDPresenter : MonoBehaviour
         hudView.UpdateCoins(gameModel.Coins);
         hudView.UpdateBaseHealth(gameModel.BaseHealth); 
         
-        hudView.UpdateControlsText(controlsText);
+        isHelpExpanded = false;
+        UpdateControlsHelp();
         
         if (Managers.WaveManager.Instance != null)
         {
@@ -46,6 +58,21 @@ public class GameHUDPresenter : MonoBehaviour
     private void HandleModeChanged(TurretBuilder.Mode mode)
     {
         hudView.UpdateCurrentMode(mode.ToString());
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            isHelpExpanded = !isHelpExpanded;
+            UpdateControlsHelp();
+        }
+    }
+
+    private void UpdateControlsHelp()
+    {
+        string helpText = isHelpExpanded ? expandedControlsText : collapsedControlsText;
+        hudView.UpdateControlsText(helpText);
     }
 
     private void HandleWaveCompleted()
