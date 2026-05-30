@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour, IPrototype<Enemy>
 
         agent.areaMask = navAreaMask;
 
-        castleTarget = FindObjectOfType<Castle>();
+        castleTarget = FindFirstObjectByType<Castle>();
         if (castleTarget != null)
         {
             if (!TrySnapToNavMesh())

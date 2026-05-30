@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.AudioManager
   backgroundMusic: {fileID: 8300000, guid: a79b100429c878a44be10a7e0b57e3ef, type: 3}
-  musicVolume: 1
+  musicVolume: 0.1
 --- !u!4 &22945290
 Transform:
   m_ObjectHideFlags: 0
@@ -22828,7 +22828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3e1d7f97e54f038e1234ba644c9335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleBuild.MouseTurretBuilder
-  turretPrefab: {fileID: 8512745415625710236, guid: cfffb458338841b40a3a849737a4768b, type: 3}
+  turretPrefab: {fileID: 4417098535176035833, guid: cfffb458338841b40a3a849737a4768b, type: 3}
   placementMask:
     serializedVersion: 2
     m_Bits: 1
