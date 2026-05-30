@@ -868,7 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95265081a32a416458b95b1a704dc5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Managers.AudioManager
-  backgroundMusic: {fileID: 8300000, guid: 45c2110801bf3374688be22ab855ecd5, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: a79b100429c878a44be10a7e0b57e3ef, type: 3}
   musicVolume: 1
 --- !u!4 &22945290
 Transform:
