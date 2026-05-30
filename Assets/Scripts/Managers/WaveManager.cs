@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Economy;
 using FactoryPattern;
 using Singeltons;
@@ -8,20 +9,29 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class WaveManager : SingletonPersistant<WaveManager>
+    public class WaveManager : SingletonNonPersistant<WaveManager>
     {
         public event Action OnWaveCompleted;
         
         private float _aliveEnemies;
         
         [Header("Wave Settings")]
-        [SerializeField] private List<GameObject> spawnPoints = new();
+        private List<GameObject> spawnPoints = new List<GameObject>();
         [SerializeField] private int waveSize;
         [SerializeField] private float waveSizeMultiplier = 1.5f;
         [SerializeField] private float spawnDelta = 1.0f;
 
         [Header("Enemy Factory Prefab List")]
         [SerializeField] private BaseEnemyFactory _enemyFactory;
+
+        public void Start()
+        {
+            spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint").ToList();
+            foreach (var go in spawnPoints)
+            {
+                DontDestroyOnLoad(go);
+            }
+        }
 
         public IEnumerator StartWave()
         {
@@ -31,6 +41,7 @@ namespace Managers
                 Enemy enemyComponent = _enemyFactory.CreateEnemy(transform);
                 if (enemyComponent != null)
                 {
+                    print("tu jestem");
                     Transform spawnTransform = GetRandomSpawnTransform();
                     enemyComponent.transform.position = spawnTransform != null ? spawnTransform.position : transform.position;
                     enemyComponent.OnDeath += HandleEnemyDeath;

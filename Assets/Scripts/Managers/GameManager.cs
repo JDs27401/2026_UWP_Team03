@@ -142,6 +142,7 @@ namespace Managers
         private void CreateFreshModel()
         {
             GameModel = new GameModel(startCoins, startBaseHealth, startWaveNumber);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void UnsubscribeFromWaveManager()
